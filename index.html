@@ -6717,4 +6717,36 @@ loadTimeData = new LoadTimeData();
 // |loadTimeData| explicitly.
 window.loadTimeData = loadTimeData;
 console.warn('crbug/1173575, non-JS module files deprecated.');
+  <div id="audioBox">
+<script type="text/javascript">
+    window.onload = function () {
+        var arr =[
+"http://music.163.com/song/media/outer/url?id=5171213.mp3",
+"http://music.163.com/song/media/outer/url?id=2034742057.mp3",
+"http://music.163.com/song/media/outer/url?id=1384482575.mp3",
+"http://music.163.com/song/media/outer/url?id=1356658022.mp3",
+"http://music.163.com/song/media/outer/url?id=1392600538.mp3",
+"http://music.163.com/song/media/outer/url?id=1464399265.mp3",
+"http://music.163.com/song/media/outer/url?id=39224659.mp3",
+"http://music.163.com/song/media/outer/url?id=1433584979.mp3",
+
+                 ]; //把需要播放的歌曲从后往前排，这里已添加两首音乐，可继续添加多个音乐
+
+        var myAudio = new Audio();
+        myAudio.preload = true;
+        myAudio.controls = false;
+        myAudio.src = arr.pop(); // 每次读数组最后一个元素
+        myAudio.addEventListener('ended', playEndedHandler, false);
+        myAudio.play();
+        document.getElementById("audioBox").appendChild(myAudio);
+        myAudio.loop = false; // 禁止循环，否则无法触发ended事件
+        function playEndedHandler() {
+            myAudio.src = arr.pop();
+            myAudio.play();
+            console.log(arr.length);
+            !arr.length && myAudio.removeEventListener('ended', playEndedHandler, false);//只有一个元素时解除绑定
+        }
+    }
+</script>
+</div>
 </script><script jstcache="0">const pageData = {"dinoGameA11yAriaLabel":"恐龙游戏，玩","dinoGameA11yDescription":"恐龙游戏。在这款游戏中，您要协助一头正在荒野中奔跑的像素化恐龙躲避仙人掌和翼手龙。您只需在听到提示音时按一下空格键，即可让恐龙跃过障碍物。","dinoGameA11yGameOver":"游戏结束，您的得分是 $1。","dinoGameA11yHighScore":"您的最高得分是 $1。","dinoGameA11yJump":"跳！","dinoGameA11ySpeedToggle":"启用慢速模式","dinoGameA11yStartGame":"游戏已开始。","errorCode":"","fontfamily":"'Segoe UI',Arial,'Microsoft Yahei',sans-serif","fontsize":"75%","heading":{"hostName":"dino","msg":"按空格键即可开始游戏"},"iconClass":"icon-offline","language":"zh","textdirection":"ltr","title":"chrome://dino/"};loadTimeData.data = pageData;var tp = document.getElementById('t');jstProcess(new JsEvalContext(pageData), tp);</script></body></html>
